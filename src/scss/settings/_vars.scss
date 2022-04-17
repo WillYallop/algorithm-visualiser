@@ -1,0 +1,15 @@
+$section_colour: #ECF0F3;
+$section_colour_h: #dde3e7;
+
+$border_colour: #cbd0d3;
+$font_title: rgb(27, 27, 27);
+$font_body: rgb(39, 39, 39);
+
+$border_radius: 20px;
+
+@mixin neomorph {
+    background-color: $section_colour;
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.082),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.904);
+}

@@ -1,25 +1,50 @@
 .canvas {
-    width: 70%;
-    border: 2px solid black;
+    @include neomorph;
+    width: 100%;
     display: grid;
     grid-template-columns: repeat(var(--cols), 1fr);
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: $border_radius;
     &__tile {
         position: relative;
-        border: 1px solid black;
+        &--0 { // blank
+            
+            &::after {
+                background-color: $section_colour_h;
+            }
+        }
+        &--1 { // wall
+            
+            &::after {
+                background-color: rgb(71, 71, 71);
+            }
+        }
+        &--2 { // finder
+            
+            &::after {
+                background-color: rgb(231, 41, 41);
+            }
+        }
+        &--3 { // target
+            
+            &::after {
+                background-color: rgb(62, 218, 62);
+            }
+        }
         &::before {
             content: '';
             display: block;
             padding-top: 100%;
         }
-        &__inner {
+        &::after {
+            content: '';
             position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            top: 3%;
+            right: 3%;
+            bottom: 3%;
+            left: 3%;
+            border-radius: 5px;
         }
     }
 }
