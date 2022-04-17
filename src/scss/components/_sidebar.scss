@@ -12,6 +12,51 @@
         &__section {
             padding: 10px 0;
             border-bottom: 2px solid $border_colour;
+            &__body {
+                margin-top: 10px;
+                &--path-painter {
+                    display: grid;
+                    grid-template-columns: repeat(4, 1fr);
+                    gap: 10px;;
+                }
+                &__button {
+                    @include animate;
+                    cursor: pointer;
+                    aspect-ratio: 1;
+                    border-radius: $border_radius;
+                    border: none;
+                    font-size: 14px;
+                    font-weight: bold;
+                    &--blank {
+                        background-color: $blank_colour;
+                        color: $blank_colour_accent;
+                        &:hover {
+                            background-color: $blank_colour_hover;
+                        }
+                    }
+                    &--wall {
+                        background-color: $wall_colour;
+                        color: $wall_colour_accent;
+                        &:hover {
+                            background-color: $wall_colour_hover;
+                        }
+                    }
+                    &--finder {
+                        background-color: $finder_colour;
+                        color: $finder_colour_accent;
+                        &:hover {
+                            background-color: $finder_colour_hover;
+                        }
+                    }
+                    &--target {
+                        background-color: $target_colour;
+                        color: $target_colour_accent;
+                        &:hover {
+                            background-color: $target_colour_hover;
+                        }
+                    }
+                }
+            }
         }
     }
 }

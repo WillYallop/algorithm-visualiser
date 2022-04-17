@@ -7,9 +7,33 @@ $font_body: rgb(39, 39, 39);
 
 $border_radius: 20px;
 
+
+
+// Tile Colours
+$blank_colour: #dde3e7;
+$blank_colour_hover: #ccd3d8;
+$blank_colour_accent: #212222;
+
+$wall_colour: #303131;
+$wall_colour_hover: #363838;
+$wall_colour_accent: #e4ecec;
+
+$finder_colour: #db2d59;
+$finder_colour_hover: #ca2952;
+$finder_colour_accent: #fae9ed;
+
+$target_colour: #2dd6ce;
+$target_colour_hover: #29c9c1;
+$target_colour_accent: #272929;
+
+
+// Mixins
 @mixin neomorph {
     background-color: $section_colour;
     box-shadow: 
     12px 12px 16px 0 rgba(0, 0, 0, 0.082),
     -8px -8px 12px 0 rgba(255, 255, 255, 0.904);
+}
+@mixin animate {
+    transition: 0.3s;
 }

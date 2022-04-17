@@ -9,27 +9,44 @@
     &__tile {
         position: relative;
         &--0 { // blank
-            
+            &:hover {
+                &::after {
+                    background-color: $blank_colour_hover;
+                }
+            }
             &::after {
-                background-color: $section_colour_h;
+                background-color: $blank_colour;
+    
             }
         }
         &--1 { // wall
-            
+            &:hover {
+                &::after {
+                    background-color: $wall_colour_hover;
+                }
+            }
             &::after {
-                background-color: rgb(71, 71, 71);
+                background-color: $wall_colour;
             }
         }
         &--2 { // finder
-            
+            &:hover {
+                &::after {
+                    background-color: $finder_colour_hover;
+                }
+            }
             &::after {
-                background-color: rgb(231, 41, 41);
+                background-color: $finder_colour;
             }
         }
         &--3 { // target
-            
+            &:hover {
+                &::after {
+                    background-color: $target_colour_hover;
+                }
+            }
             &::after {
-                background-color: rgb(62, 218, 62);
+                background-color: $target_colour;
             }
         }
         &::before {
