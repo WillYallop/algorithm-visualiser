@@ -3,5 +3,3 @@
 import Scene from "./path_finder/scene";
 
 const PathFinderScene = new Scene('.canvas');
-
-PathFinderScene.renderTiles();

@@ -27,6 +27,10 @@
                     border: none;
                     font-size: 14px;
                     font-weight: bold;
+                    border: 2px solid transparent;
+                    &.active {
+                        border: 2px solid rgb(31, 31, 224);
+                    }
                     &--blank {
                         background-color: $blank_colour;
                         color: $blank_colour_accent;
