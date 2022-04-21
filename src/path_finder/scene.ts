@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import Tile from "./tile";
+import dijkstra from './algorithms/dijkstra';
 
 export default class Scene {
     tileMap: Map<string, Tile>;
@@ -30,6 +31,7 @@ export default class Scene {
         //
         this.__initiateGrid();
         this.__initiatePainterBtns();
+        this.__iniitateAlgorithms();
     }
 
     // grid
@@ -51,7 +53,8 @@ export default class Scene {
                     id: id,
                     x: x,
                     y: y,
-                    state: state
+                    state: state,
+                    weight: 1
                 }));
             }
         }
@@ -124,5 +127,23 @@ export default class Scene {
             this.painterBtns[i].classList.remove('active');
         }
         document.querySelector(`[data-painter="${painter}"]`).classList.add('active');
+    }
+
+    // * adds listeners for the algorithm start and select section
+    __iniitateAlgorithms() {
+        const startBtnEle = document.getElementById('start-algorithm');
+        const selectInpEle = document.getElementById('algorithmsInp') as HTMLSelectElement;
+        startBtnEle.addEventListener('click', () => {
+
+            let start: Tile;
+            let target: Tile;
+            for(const [ id, Tile ] of this.tileMap) {
+                if(Tile.state === 2) start = Tile;
+                if(Tile.state === 3) target = Tile;
+            }
+
+            if(selectInpEle.value === 'dijkstra') dijkstra(this.tileMap, start, target);
+            
+        }, { passive: true });
     }
 }

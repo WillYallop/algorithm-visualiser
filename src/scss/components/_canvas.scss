@@ -28,6 +28,13 @@
             background-repeat: no-repeat;
             background-position: center;
         }
+
+        &.visited {
+            &::after {
+                background-color: blue;
+            }
+        }
+
         &--0 { // blank
             &:hover {
                 &::after {

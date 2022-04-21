@@ -24,7 +24,24 @@ export default class Tile {
         this.element.classList.add(`canvas__tile--${this.tileState.state}`);
     }
 
+
+    get id() {
+        return this.tileState.id;
+    }
     get state() {
         return this.tileState.state;
     }
+    get ele() {
+        return this.element;
+    }
+    get dijkstraConfig() {
+        return {
+            id: this.tileState.id,
+            state: this.tileState.state,
+            weight: this.tileState.weight,
+            x: this.tileState.x,
+            y: this.tileState.y
+        }
+    }
+
 }
