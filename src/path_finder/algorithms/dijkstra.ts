@@ -8,7 +8,7 @@ interface node {
     state: class_ti_state
     distance: number
     parent_id: string
-    tile: Tile
+    Tile: Tile
 }
 
 export default (grid: Map<string, Tile>, startTile: Tile, targetTitle: Tile) => {
@@ -17,10 +17,11 @@ export default (grid: Map<string, Tile>, startTile: Tile, targetTitle: Tile) => 
     let nodes = getNodesList(grid, startTile.id);
     // set the current node
     let targetFound = false;
-    let path = [];
 
     let checkNodes = [nodes.find( x => x.id === startTile.id )];
 
+    let path: Array<Tile> = [];
+    let visitedNodesInOrder: Array<Array<node>> = [];
     
     // while we have neighbours
      while (!targetFound) {
@@ -30,6 +31,10 @@ export default (grid: Map<string, Tile>, startTile: Tile, targetTitle: Tile) => 
         const neighbours = getNeighbours(nodes, currentNode);
 
         for(let i = 0; i < neighbours.length; i++) {
+
+            // If its a wall
+            if(neighbours[i].state === 1) continue;
+
             // - set the distance varaible as the current nodes, plus its weight
             const distance = currentNode.distance + neighbours[i].weight;
             // - if the nodes distance is infinite or less than the current, update it and set the parent_id value
@@ -37,24 +42,32 @@ export default (grid: Map<string, Tile>, startTile: Tile, targetTitle: Tile) => 
                 neighbours[i].distance = distance;
                 neighbours[i].parent_id = currentNode.id;
                 checkNodes.push(neighbours[i]);
+                
             }
+
+            visitedNodesInOrder.push(neighbours);
+
             // - if the current node is the target. end the loop.
             if(neighbours[i].state === 3) {
                 targetFound = true;
-                // console.log(nodes);
                 path = generatePath(nodes, neighbours[i]);
             }
+            
         }
 
+        // remove first item
         checkNodes.shift();
 
     }
 
-
-    // work out the path, backwards from the target.
-    for(let i = 0; i < path.length; i++) {
-        path[i].ele.classList.add('visited');
+    return {
+        path: path,
+        order: visitedNodesInOrder
     }
+    // // work out the path, backwards from the target.
+    // for(let i = 0; i < path.length; i++) {
+    //     path[i].setTileState(4);
+    // }
 }
 
 // create an array of all nodes.
@@ -70,7 +83,7 @@ const getNodesList = (grid: Map<string, Tile>, startID: string) => {
             id: state.id,
             distance: state.id === startID ? 0 : Infinity,
             parent_id: undefined,
-            tile: Tile
+            Tile: Tile
         });
     }
     return nodes;
@@ -103,7 +116,7 @@ const generatePath = (nodes: Array<node>, target: node) => {
             traversed = true;
             continue;
         }
-        path.push(current.tile);
+        if(current.state !== 3) path.push(current.Tile);
         current = nodes.find( x => x.id === current.parent_id );
     }
     return path;

@@ -25,14 +25,12 @@ export default class Tile {
     }
 
 
+
     get id() {
         return this.tileState.id;
     }
     get state() {
         return this.tileState.state;
-    }
-    get ele() {
-        return this.element;
     }
     get dijkstraConfig() {
         return {

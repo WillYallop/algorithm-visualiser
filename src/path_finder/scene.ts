@@ -130,6 +130,7 @@ export default class Scene {
     }
 
     // * adds listeners for the algorithm start and select section
+    // TODO - work on this function - current iteration is just for quick example
     __iniitateAlgorithms() {
         const startBtnEle = document.getElementById('start-algorithm');
         const selectInpEle = document.getElementById('algorithmsInp') as HTMLSelectElement;
@@ -142,8 +143,28 @@ export default class Scene {
                 if(Tile.state === 3) target = Tile;
             }
 
-            if(selectInpEle.value === 'dijkstra') dijkstra(this.tileMap, start, target);
-            
+            if(selectInpEle.value === 'dijkstra') {
+                const result = dijkstra(this.tileMap, start, target);
+                for(let i = 0; i < result.order.length; i++) {
+                    for(let j = 0; j < result.order[i].length; j++) {
+                        ((index, jIndex) => {
+                            setTimeout(() => { 
+                                let state = result.order[index][jIndex].Tile.state;
+                                if(state === 0) {
+                                    result.order[index][jIndex].Tile.setTileState(5);
+                                }
+                                if(index === result.order.length - 1 && jIndex === result.order[index].length - 1) {
+                                    // build final path
+                                    for(let pi = 0; pi < result.path.length; pi++) {
+                                        result.path[pi].setTileState(4);
+                                    }
+                                }
+                            }, i * 10);
+                        })(i, j);
+                    }
+                }
+            }
+
         }, { passive: true });
     }
 }

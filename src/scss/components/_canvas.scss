@@ -29,11 +29,7 @@
             background-position: center;
         }
 
-        &.visited {
-            &::after {
-                background-color: blue;
-            }
-        }
+
 
         &--0 { // blank
             &:hover {
@@ -85,6 +81,32 @@
                 animation-duration: 0.3s;
             }
         }
+        &--4 { // path
+            &:hover {
+                &::after {
+                    background-color: $path_colour_hover;
+                }
+            }
+            &::after {
+                background-color: $path_colour;
+                animation-name: pathIn;
+                animation-duration: 0.3s;
+            }
+        }
+
+        &--5 { // highlight
+            &:hover {
+                &::after {
+                    background-color: $visited_colour_hover;
+                }
+            }
+            &::after {
+                background-color: $visited_colour;
+                animation-name: pathIn;
+                animation-duration: 0.3s;
+            }
+        }
+
         @keyframes blankIn {
             0% { 
                 transform: scale(1.2);
@@ -116,6 +138,16 @@
             }
         }
         @keyframes targetIn {
+            0% { 
+                transform: scale(1.2);
+                opacity: 0;
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes pathIn {
             0% { 
                 transform: scale(1.2);
                 opacity: 0;

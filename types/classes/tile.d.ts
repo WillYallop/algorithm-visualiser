@@ -17,5 +17,7 @@ declare enum class_ti_state {
     Blank,
     Wall,
     Finder,
-    Target
+    Target,
+    Path,
+    Visited
 }

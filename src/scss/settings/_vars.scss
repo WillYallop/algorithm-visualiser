@@ -26,6 +26,14 @@ $target_colour: #2dd6ce;
 $target_colour_hover: #29c9c1;
 $target_colour_accent: #272929;
 
+$path_colour: #e9cb25;
+$path_colour_hover: #dbc022;
+$path_colour_accent: #1b1b19;
+
+$visited_colour: rgb(126, 171, 223);
+$visited_colour_hover: rgb(113, 154, 201);
+$visited_colour_accent: #19191b;
+
 
 // Mixins
 @mixin neomorph {
