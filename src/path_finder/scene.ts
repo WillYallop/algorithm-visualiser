@@ -107,6 +107,25 @@ export default class Scene {
             if(Tile.state === type) Tile.setTileState(0);
         }
     }
+    // * reset tile algorithm states
+    __resetAlgorithmTileState() {
+        for(const [id, Tile] of this.tileMap) {
+            if(Tile.state === 4 || Tile.state === 5 || Tile.state === 6) Tile.setTileState(0);
+        }
+    } 
+    // * animate tiles
+   __animateTiles(order: Array<class_ti_animateOrder>) {
+        const animate = (index: number, Tile: Tile, state: class_ti_state) => {
+            setTimeout(() => { 
+                Tile.setTileState(state);
+            }, index * 10);
+        }
+        for(let i = 0; i < order.length; i++) {
+            const Tile = this.tileMap.get(order[i].id);
+            if(Tile.state === 0 || Tile.state === 5 || Tile.state === 6) animate(i, Tile, order[i].state);
+            else continue;
+        }
+    }
 
 
     // painter
@@ -130,41 +149,19 @@ export default class Scene {
     }
 
     // * adds listeners for the algorithm start and select section
-    // TODO - work on this function - current iteration is just for quick example
     __iniitateAlgorithms() {
         const startBtnEle = document.getElementById('start-algorithm');
+        
+        startBtnEle.addEventListener('click', () => this.__startAlgorithm(), { passive: true });
+    }
+    __startAlgorithm() {
         const selectInpEle = document.getElementById('algorithmsInp') as HTMLSelectElement;
-        startBtnEle.addEventListener('click', () => {
 
-            let start: Tile;
-            let target: Tile;
-            for(const [ id, Tile ] of this.tileMap) {
-                if(Tile.state === 2) start = Tile;
-                if(Tile.state === 3) target = Tile;
-            }
+        this.__resetAlgorithmTileState();
 
-            if(selectInpEle.value === 'dijkstra') {
-                const result = dijkstra(this.tileMap, start, target);
-                for(let i = 0; i < result.order.length; i++) {
-                    for(let j = 0; j < result.order[i].length; j++) {
-                        ((index, jIndex) => {
-                            setTimeout(() => { 
-                                let state = result.order[index][jIndex].Tile.state;
-                                if(state === 0) {
-                                    result.order[index][jIndex].Tile.setTileState(5);
-                                }
-                                if(index === result.order.length - 1 && jIndex === result.order[index].length - 1) {
-                                    // build final path
-                                    for(let pi = 0; pi < result.path.length; pi++) {
-                                        result.path[pi].setTileState(4);
-                                    }
-                                }
-                            }, i * 10);
-                        })(i, j);
-                    }
-                }
-            }
-
-        }, { passive: true });
+        if(selectInpEle.value === 'dijkstra') {
+            const order = dijkstra(this.tileMap);
+            this.__animateTiles(order);
+        }
     }
 }

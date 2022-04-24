@@ -1,4 +1,4 @@
-
+// key: class_ti_
 
 interface class_ti_constructor {
     id: string,
@@ -14,10 +14,18 @@ interface class_ti_constructor {
 }
 
 declare enum class_ti_state {
+    // core states
     Blank,
     Wall,
     Finder,
     Target,
+    // algorithm states
     Path,
-    Visited
+    Visited,
+    Complete
+}
+
+interface class_ti_animateOrder {
+    id: class_ti_constructor["id"]
+    state: class_ti_state
 }

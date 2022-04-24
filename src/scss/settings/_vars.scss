@@ -30,9 +30,13 @@ $path_colour: #e9cb25;
 $path_colour_hover: #dbc022;
 $path_colour_accent: #1b1b19;
 
-$visited_colour: rgb(126, 171, 223);
-$visited_colour_hover: rgb(113, 154, 201);
-$visited_colour_accent: #19191b;
+$visited_colour: #dde3e7;
+$visited_colour_hover: #dde3e7;
+
+$complete_colour_before: rgb(166, 235, 224);
+$complete_colour: rgb(138, 176, 219);
+$complete_colour_hover: rgb(145, 173, 206);
+$complete_colour_accent: #19191b;
 
 
 // Mixins

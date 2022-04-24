@@ -94,16 +94,28 @@
             }
         }
 
-        &--5 { // highlight
+        &--5 { // visited
             &:hover {
                 &::after {
                     background-color: $visited_colour_hover;
                 }
             }
             &::after {
+                background-image: url('data:image/svg+xml; utf8, <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256zM256 352C309 352 352 309 352 256C352 202.1 309 160 256 160C202.1 160 160 202.1 160 256C160 309 202.1 352 256 352z"/></svg>');
+                background-size: 10px 10px;
                 background-color: $visited_colour;
-                animation-name: pathIn;
-                animation-duration: 0.3s;
+            }
+        }
+        &--6 { // complete
+            &:hover {
+                &::after {
+                    background-color: $complete_colour_hover;
+                }
+            }
+            &::after {
+                animation-fill-mode: forwards;
+                animation-name: completeIn;
+                animation-duration: 1.5s;
             }
         }
 
@@ -155,6 +167,18 @@
             100% { 
                 transform: scale(1);
                 opacity: 1;
+            }
+        }
+        @keyframes completeIn {
+            0% { 
+                transform: scale(0.6);
+                border-radius: 50%;
+                background-color: $complete_colour_before;
+            }
+            100% { 
+                transform: scale(1);
+                border-radius: 5px;
+                background-color: $complete_colour;
             }
         }
     }

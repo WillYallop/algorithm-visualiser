@@ -2,7 +2,6 @@ export default class Tile {
     element: HTMLElement;
     tileState: class_ti_constructor;
     constructor(state: class_ti_constructor) {
-        
         this.tileState = state;
         this.__build();
     }
@@ -29,17 +28,16 @@ export default class Tile {
     get id() {
         return this.tileState.id;
     }
+    get weight() {
+        return this.tileState.weight;
+    }
+    get x() {
+        return this.tileState.x;
+    }
+    get y() {
+        return this.tileState.y;
+    }
     get state() {
         return this.tileState.state;
     }
-    get dijkstraConfig() {
-        return {
-            id: this.tileState.id,
-            state: this.tileState.state,
-            weight: this.tileState.weight,
-            x: this.tileState.x,
-            y: this.tileState.y
-        }
-    }
-
 }
