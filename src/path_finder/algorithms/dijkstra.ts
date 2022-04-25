@@ -24,41 +24,46 @@ export default (grid: Map<string, Tile>) => {
     while (!targetFound) {
         let currentNode = checkNodes[0];
 
-        visitedNodesInOrder.push({
-            id: currentNode.id,
-            state: 6 // visited
-        });
-  
-        // - add its neighbours to the array
-        const neighbours = getNeighbours(nodes, currentNode);
-
-        for(let i = 0; i < neighbours.length; i++) {
-            // If its a wall
-            if(neighbours[i].state === 1) continue;
-
-            // - set the distance varaible as the current nodes, plus its weight
-            const distance = currentNode.distance + neighbours[i].weight;
-            // - if the nodes distance is infinite or less than the current, update it and set the parent_id value
-            if(neighbours[i].distance === Infinity || distance < neighbours[i].distance) {
-                neighbours[i].distance = distance;
-                neighbours[i].parent_id = currentNode.id;
-                checkNodes.push(neighbours[i]);
-                visitedNodesInOrder.push({
-                    id: neighbours[i].id,
-                    state: 5 // completre
-                });
+        if(currentNode !== undefined) {
+            visitedNodesInOrder.push({
+                id: currentNode.id,
+                state: 6 // visited
+            });
+      
+            // - add its neighbours to the array
+            const neighbours = getNeighbours(nodes, currentNode);
+    
+            for(let i = 0; i < neighbours.length; i++) {
+                // If its a wall
+                if(neighbours[i].state === 1) continue;
+    
+                // - set the distance varaible as the current nodes, plus its weight
+                const distance = currentNode.distance + neighbours[i].weight;
+                // - if the nodes distance is infinite or less than the current, update it and set the parent_id value
+                if(neighbours[i].distance === Infinity || distance < neighbours[i].distance) {
+                    neighbours[i].distance = distance;
+                    neighbours[i].parent_id = currentNode.id;
+                    checkNodes.push(neighbours[i]);
+                    visitedNodesInOrder.push({
+                        id: neighbours[i].id,
+                        state: 5 // completre
+                    });
+                }
+    
+                // - if the current node is the target. end the loop.
+                if(neighbours[i].state === 3) {
+                    targetFound = true;
+                    visitedNodesInOrder = visitedNodesInOrder.concat(generatePath(nodes, neighbours[i]));
+                    break;
+                }
             }
-
-            // - if the current node is the target. end the loop.
-            if(neighbours[i].state === 3) {
-                targetFound = true;
-                visitedNodesInOrder = visitedNodesInOrder.concat(generatePath(nodes, neighbours[i]));
-                break;
-            }
+    
+            // remove first item
+            checkNodes.shift();
         }
-
-        // remove first item
-        checkNodes.shift();
+        else {
+            break;
+        }
     }
 
     return visitedNodesInOrder;

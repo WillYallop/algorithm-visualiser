@@ -1,8 +1,10 @@
+/// <reference path="../../types/index.d.ts"/>
+
 import { v4 as uuidv4 } from 'uuid';
 import Tile from "./tile";
 import dijkstra from './algorithms/dijkstra';
 
-export default class Scene {
+export default class PathFinderScene {
     tileMap: Map<string, Tile>;
     canvasElement: HTMLElement;
     config: class_sc_config;
@@ -10,6 +12,7 @@ export default class Scene {
     activePainter: class_ti_state;
     paint: boolean;
     locked: boolean;
+    algorithmTilesPainted: boolean;
     constructor(target: string) {
         // config
         this.config = {
@@ -21,6 +24,7 @@ export default class Scene {
         }
         // 
         this.locked = false;
+        this.algorithmTilesPainted = false;
         // canvas container
         this.canvasElement = document.querySelector(target) as HTMLElement;
         this.canvasElement.style.setProperty('--cols', `${this.config.resolution[0]}`);
@@ -104,6 +108,8 @@ export default class Scene {
 
             const Tile = this.tileMap.get(id);
             if(Tile.state !== 2 && Tile.state !== 3) Tile.setTileState(this.activePainter);
+
+            if(this.algorithmTilesPainted) this.__resetAlgorithmTileState();
         }
     }
     // * resets specified tile type to balnk
@@ -117,9 +123,11 @@ export default class Scene {
         for(const [id, Tile] of this.tileMap) {
             if(Tile.state === 4 || Tile.state === 5 || Tile.state === 6) Tile.setTileState(0);
         }
+        this.algorithmTilesPainted = false;
     } 
     // * animate tiles
    __animateTiles(order: Array<class_ti_animateOrder>) {
+        this.algorithmTilesPainted = true;
         const animate = (index: number, Tile: Tile, state: class_ti_state) => {
             setTimeout(() => { 
                 Tile.setTileState(state);
@@ -165,10 +173,20 @@ export default class Scene {
         if(!this.locked) {
             this.locked = true;
             this.__resetAlgorithmTileState();
+
+            let order: Array<class_ti_animateOrder>;
+
             if(selectInpEle.value === 'dijkstra') {
-                const order = dijkstra(this.tileMap);
+                order = dijkstra(this.tileMap);
                 this.__animateTiles(order);
             }
+            
+            if(order.length === 1) this.__algorithmFailed();
+
         }
+    }
+    // * handle failed case for algorithms
+    __algorithmFailed() {
+        this.locked = false;
     }
 }

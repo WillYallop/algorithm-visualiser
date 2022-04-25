@@ -1,5 +1,5 @@
 /// <reference path="../types/index.d.ts"/>
 
-import Scene from "./path_finder/scene";
+import PathFinderScene from "./path_finder/scene";
 
-const PathFinderScene = new Scene('.canvas');
+const PathFinder = new PathFinderScene('.canvas');
