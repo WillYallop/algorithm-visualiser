@@ -9,6 +9,7 @@ export default class Scene {
     painterBtns: NodeListOf<HTMLElement>;
     activePainter: class_ti_state;
     paint: boolean;
+    locked: boolean;
     constructor(target: string) {
         // config
         this.config = {
@@ -18,6 +19,8 @@ export default class Scene {
                 target: [ 17, 17 ]
             }
         }
+        // 
+        this.locked = false;
         // canvas container
         this.canvasElement = document.querySelector(target) as HTMLElement;
         this.canvasElement.style.setProperty('--cols', `${this.config.resolution[0]}`);
@@ -94,12 +97,14 @@ export default class Scene {
     // tiles
     // * handles painting a tile
     __paintTileHandler(id: string) {
-        // resets finder and target types so we can only have one at a time
-        if(this.activePainter === 2) this.__resetTileTypeToBlank(2);
-        else if (this.activePainter === 3) this.__resetTileTypeToBlank(3);
+        if(!this.locked) {
+            // resets finder and target types so we can only have one at a time
+            if(this.activePainter === 2) this.__resetTileTypeToBlank(2);
+            else if (this.activePainter === 3) this.__resetTileTypeToBlank(3);
 
-        const Tile = this.tileMap.get(id);
-        if(Tile.state !== 2 && Tile.state !== 3) Tile.setTileState(this.activePainter);
+            const Tile = this.tileMap.get(id);
+            if(Tile.state !== 2 && Tile.state !== 3) Tile.setTileState(this.activePainter);
+        }
     }
     // * resets specified tile type to balnk
     __resetTileTypeToBlank(type: class_ti_state) {
@@ -118,6 +123,7 @@ export default class Scene {
         const animate = (index: number, Tile: Tile, state: class_ti_state) => {
             setTimeout(() => { 
                 Tile.setTileState(state);
+                if(index === order.length - 1) this.locked = false;
             }, index * 10);
         }
         for(let i = 0; i < order.length; i++) {
@@ -156,12 +162,13 @@ export default class Scene {
     }
     __startAlgorithm() {
         const selectInpEle = document.getElementById('algorithmsInp') as HTMLSelectElement;
-
-        this.__resetAlgorithmTileState();
-
-        if(selectInpEle.value === 'dijkstra') {
-            const order = dijkstra(this.tileMap);
-            this.__animateTiles(order);
+        if(!this.locked) {
+            this.locked = true;
+            this.__resetAlgorithmTileState();
+            if(selectInpEle.value === 'dijkstra') {
+                const order = dijkstra(this.tileMap);
+                this.__animateTiles(order);
+            }
         }
     }
 }
