@@ -1,6 +1,7 @@
 /// <reference path="../../types/index.d.ts"/>
 
 import { v4 as uuidv4 } from 'uuid';
+import rangesliderJs from 'rangeslider-js'
 import Tile from "./tile";
 import dijkstra from './algorithms/dijkstra';
 
@@ -27,7 +28,6 @@ export default class PathFinderScene {
         this.algorithmTilesPainted = false;
         // canvas container
         this.canvasElement = document.querySelector(target) as HTMLElement;
-        this.canvasElement.style.setProperty('--cols', `${this.config.resolution[0]}`);
         // tiles
         this.tileMap = new Map();
         // painter
@@ -47,15 +47,20 @@ export default class PathFinderScene {
         this.__buildGrid();
         this.__gridPaintHandler();
         this.__renderTiles();
+        this.__gridSizeScaler();
     }
     // * builds tiles based on config and stores them in tileMap
     __buildGrid() {
+        this.canvasElement.innerHTML = '';
+        this.canvasElement.style.setProperty('--cols', `${this.config.resolution[0]}`);
         for(let x = 0; x < this.config.resolution[0]; x++) {
             for(let y = 0; y < this.config.resolution[1]; y++) {
                 const id = uuidv4();
                 let state = 0;
-                if(x === this.config.start.finder[0] && y === this.config.start.finder[1]) state = 2;
-                else if(x === this.config.start.target[0] && y === this.config.start.target[1]) state = 3;
+                
+                if(x === 0 && y === 0) state = 2;
+                else if(x === this.config.resolution[0] - 1 && y === this.config.resolution[1] - 1) state = 3;
+
                 this.tileMap.set(id, new Tile({
                     id: id,
                     x: x,
@@ -97,6 +102,21 @@ export default class PathFinderScene {
             tile.render(this.canvasElement);
         }
     }
+    // * handle resizing the grid
+    __gridSizeScaler() {
+        const gridSizeEle = document.getElementById('gridSize') as HTMLElement;
+        rangesliderJs.create(document.getElementById('gridRangeSlider'), {
+            onSlide: (value, percent, position) => {
+                gridSizeEle.innerText = `${value}x${value}`;
+            },
+            onSlideEnd: (value, percent, position) => {
+                this.config.resolution = [value, value];
+                this.tileMap = new Map();
+                this.__buildGrid();
+                this.__renderTiles();
+            }
+        });
+    } 
 
     // tiles
     // * handles painting a tile
