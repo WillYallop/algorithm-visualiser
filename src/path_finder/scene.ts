@@ -111,6 +111,8 @@ export default class PathFinderScene {
             },
             onSlideEnd: (value, percent, position) => {
                 this.config.resolution = [value, value];
+                this.locked = false;
+                this.algorithmTilesPainted = false;
                 this.tileMap = new Map();
                 this.__buildGrid();
                 this.__renderTiles();
