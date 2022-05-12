@@ -12,7 +12,7 @@
     top: 50%;
     height: 5px;
     z-index: 2;
-    background: rgb(160, 39, 216);
+    background: #303131;
     border-radius: 10px;
     will-change: width;
     transform: translateY(-50%);
@@ -23,7 +23,7 @@
     height: 20px;
     position: absolute;
     top: 50%;
-    background: rgb(160, 39, 216);
+    background: #303131;
     display: inline-block;
     z-index: 3;
     cursor: pointer;

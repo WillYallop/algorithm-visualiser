@@ -14,9 +14,7 @@
         
         <main class="wrapper">
             <div class="wrapper__main">
-                <div class="canvas">
-            
-                </div>
+                <div class="canvas"></div>
             </div>
             <div class="sidebar">
                 <div class="sidebar__inner">
@@ -52,10 +50,15 @@
                         <h2>Alorithms</h2>
                         <p>Pick an alorithm and hit start.</p>
                         <div class="sidebar__inner__section__body">
-                            <select name="alorithmsInp" id="algorithmsInp">
-                                <option value="dijkstra">Dijkstra</option>
-                            </select>
-                            <button id="start-algorithm" class="sidebar__inner__section__body__start">
+                            <div class="select-wrapper">
+                                <select name="alorithmsInp" id="algorithmsInp">
+                                    <option value="dijkstra">Dijkstra</option>
+                                </select>
+                                <div class="select-wrapper__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+                                </div>
+                            </div>
+                            <button id="start-algorithm" class="sidebar__inner__section__body__start btn-style-1-root">
                                Start
                             </button>
                         </div>
