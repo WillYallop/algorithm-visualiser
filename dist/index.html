@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+        <title>Path Finding</title>
+      <script type="module" crossorigin src="/assets/index.325334f3.js"></script>
+      <link rel="stylesheet" href="/assets/index.45439c16.css">
+    </head>
+    <body>
+        
+        <main class="wrapper">
+            <div class="wrapper__main">
+                <div class="canvas"></div>
+            </div>
+            <div class="sidebar">
+                <div class="sidebar__inner">
+                    <div class="sidebar__inner__section">
+                        <h1>Path Finding</h1>
+                    </div>
+                    <div class="sidebar__inner__section">
+                        <h2>Grid Size: (<span id="gridSize">20x20</span>)</h2>
+                        <p>Adjust the size of the grid!</p>
+                        <div class="sidebar__inner__section__body">
+                            <input id="gridRangeSlider" type="range" min="4" max="40" value="20" step="1">
+                        </div>
+                    </div>
+                    <div class="sidebar__inner__section">
+                        <h2>Path Painter</h2>
+                        <p>Pick a block, then paint it onto the canvas.</p>
+                        <div class="sidebar__inner__section__body sidebar__inner__section__body--path-painter">
+                            <button data-painter="0" class="sidebar__inner__section__body__button sidebar__inner__section__body__button--blank">
+                                blank
+                            </button>
+                            <button data-painter="1" class="sidebar__inner__section__body__button sidebar__inner__section__body__button--wall">
+                                wall
+                            </button>
+                            <button data-painter="2" class="sidebar__inner__section__body__button sidebar__inner__section__body__button--finder">
+                                finder
+                            </button>
+                            <button data-painter="3" class="sidebar__inner__section__body__button sidebar__inner__section__body__button--target">
+                                target
+                            </button>
+                        </div>
+                    </div>
+                    <div class="sidebar__inner__section">
+                        <h2>Alorithms</h2>
+                        <p>Pick an alorithm and hit start.</p>
+                        <div class="sidebar__inner__section__body">
+                            <div class="select-wrapper">
+                                <select name="alorithmsInp" id="algorithmsInp">
+                                    <option value="dijkstra">Dijkstra</option>
+                                </select>
+                                <div class="select-wrapper__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M224 416c-8.188 0-16.38-3.125-22.62-9.375l-192-192c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L224 338.8l169.4-169.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-192 192C240.4 412.9 232.2 416 224 416z"/></svg>
+                                </div>
+                            </div>
+                            <button id="start-algorithm" class="sidebar__inner__section__body__start btn-style-1-root">
+                               Start
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        
+    </body>
+</html>

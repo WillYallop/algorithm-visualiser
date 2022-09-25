@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "serve": "vite",
-    "build": "vite --production"
+    "build": "vite build"
   },
   "author": "",
   "license": "ISC",
